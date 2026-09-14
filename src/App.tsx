@@ -1,7 +1,5 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/react";
 import "./App.css";
 
 const CharacterModel = lazy(() => import("./components/Character"));
@@ -28,6 +26,7 @@ const App = () => {
             </LoadingProvider>
           }
         />
+
         <Route
           path="/myworks"
           element={
@@ -36,6 +35,7 @@ const App = () => {
             </Suspense>
           }
         />
+
         <Route
           path="/play"
           element={
@@ -45,8 +45,6 @@ const App = () => {
           }
         />
       </Routes>
-      <Analytics />
-      <SpeedInsights />
     </BrowserRouter>
   );
 };
