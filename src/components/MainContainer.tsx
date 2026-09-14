@@ -1,4 +1,6 @@
+
 import { PropsWithChildren, useEffect, useState } from "react";
+
 import About from "./About";
 import Career from "./Career";
 import Contact from "./Contact";
@@ -11,13 +13,19 @@ import Work from "./Work";
 import Certificates from "./Certificates";
 import TechStackNew from "./TechStackNew";
 import CallToAction from "./CallToAction";
+
 import setSplitText from "./utils/splitText";
+import { setPhotoHeroTimeline } from "./utils/GsapScroll";
 
 const MainContainer = ({ children }: PropsWithChildren) => {
   const [isDesktopView, setIsDesktopView] = useState<boolean>(
     window.innerWidth > 1024
   );
-  const [isMobile] = useState<boolean>(window.innerWidth <= 768);
+
+  const [isMobile] = useState<boolean>(
+    window.innerWidth <= 768
+  );
+
   const [shouldRenderCharacter, setShouldRenderCharacter] = useState(true);
 
   useEffect(() => {
@@ -25,35 +33,56 @@ const MainContainer = ({ children }: PropsWithChildren) => {
       setSplitText();
       setIsDesktopView(window.innerWidth > 1024);
     };
+
+    // Initialize animations when the page loads
     resizeHandler();
+    setPhotoHeroTimeline();
+
     window.addEventListener("resize", resizeHandler);
+
     return () => {
       window.removeEventListener("resize", resizeHandler);
     };
   }, []);
 
   useEffect(() => {
+    // Character / 3D scene is desktop-only
     if (window.innerWidth <= 1024) return;
 
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
     let idleId: number | undefined;
+
     const win = window as Window & {
-      requestIdleCallback?: (callback: IdleRequestCallback, options?: IdleRequestOptions) => number;
-      cancelIdleCallback?: (handle: number) => void;
+      requestIdleCallback?: (
+        callback: IdleRequestCallback,
+        options?: IdleRequestOptions
+      ) => number;
+
+      cancelIdleCallback?: (
+        handle: number
+      ) => void;
     };
 
-    const mountCharacter = () => setShouldRenderCharacter(true);
+    const mountCharacter = () => {
+      setShouldRenderCharacter(true);
+    };
 
     if (typeof win.requestIdleCallback === "function") {
-      idleId = win.requestIdleCallback(mountCharacter, { timeout: 1500 });
+      idleId = win.requestIdleCallback(mountCharacter, {
+        timeout: 1500,
+      });
     } else {
       timeoutId = setTimeout(mountCharacter, 1200);
     }
 
     return () => {
-      if (idleId !== undefined && typeof win.cancelIdleCallback === "function") {
+      if (
+        idleId !== undefined &&
+        typeof win.cancelIdleCallback === "function"
+      ) {
         win.cancelIdleCallback(idleId);
       }
+
       if (timeoutId !== undefined) {
         clearTimeout(timeoutId);
       }
@@ -63,18 +92,37 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   return (
     <div className="container-main">
       <Cursor />
+
       <Navbar />
+
       <SocialIcons />
-      {isDesktopView && !isMobile && shouldRenderCharacter && children}
+
+      {/* 
+        3D Character:
+        Only rendered on desktop to keep mobile performance light.
+      */}
+      {isDesktopView &&
+        !isMobile &&
+        shouldRenderCharacter &&
+        children}
+
       <div className="container-main">
         <Landing />
+
         <About />
+
         <WhatIDo />
+
         <Career />
+
         <Work />
+
         <Certificates />
+
         <TechStackNew />
+
         <CallToAction />
+
         <Contact />
       </div>
     </div>
@@ -82,3 +130,4 @@ const MainContainer = ({ children }: PropsWithChildren) => {
 };
 
 export default MainContainer;
+
