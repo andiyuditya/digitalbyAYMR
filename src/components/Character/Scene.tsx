@@ -1,160 +1,154 @@
 import { useEffect, useRef, useState } from "react";
-import * as THREE from "three";
-import setCharacter from "./utils/character";
-import setLighting from "./utils/lighting";
 import { useLoading } from "../../context/LoadingProvider";
-import handleResize from "./utils/resizeUtils";
-import {
-  handleMouseMove,
-  handleTouchEnd,
-  handleHeadRotation,
-  handleTouchMove,
-} from "./utils/mouseUtils";
-import setAnimations from "./utils/animationUtils";
 import { setProgress } from "../Loading";
+import { setPhotoHeroTimeline } from "../utils/GsapScroll";
+import "./styles/PhotoHero.css";
 
 const Scene = () => {
-  const canvasDiv = useRef<HTMLDivElement | null>(null);
-  const hoverDivRef = useRef<HTMLDivElement>(null);
-  const sceneRef = useRef(new THREE.Scene());
   const { setLoading } = useLoading();
+  const [activePhoto, setActivePhoto] = useState<"p2" | "p1">("p1");
+  const [tilt, setTilt] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef<HTMLDivElement | null>(null);
 
-  const [character, setChar] = useState<THREE.Object3D | null>(null);
   useEffect(() => {
-    if (canvasDiv.current) {
-      let rect = canvasDiv.current.getBoundingClientRect();
-      let container = { width: rect.width, height: rect.height };
-      const aspect = container.width / container.height;
-      const scene = sceneRef.current;
+    // Preload both images
+    const img1 = new Image();
+    img1.src = "/images/p1.jpeg";
+    const img2 = new Image();
+    img2.src = "/images/p3.jpeg";
 
-      const renderer = new THREE.WebGLRenderer({
-        alpha: true,
-        antialias: window.devicePixelRatio < 2,
-        powerPreference: "high-performance",
-      });
-      renderer.setSize(container.width, container.height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1;
-      canvasDiv.current.appendChild(renderer.domElement);
+    const progress = setProgress((value) => setLoading(value));
+    const timer = setTimeout(() => {
+      progress.loaded();
+    }, 400);
 
-      const camera = new THREE.PerspectiveCamera(14.5, aspect, 0.1, 1000);
-      camera.position.z = 10;
-      camera.position.set(0, 13.1, 24.7);
-      camera.zoom = 1.1;
-      camera.updateProjectionMatrix();
+    // Initialize GSAP scroll animations for the photo hero
+    setPhotoHeroTimeline();
 
-      let headBone: THREE.Object3D | null = null;
-      let screenLight: any | null = null;
-      let mixer: THREE.AnimationMixer;
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [setLoading]);
 
-      const clock = new THREE.Clock();
+  // Mouse tilt parallax effect
+  useEffect(() => {
+    const onMouseMove = (e: MouseEvent) => {
+      const normX = (e.clientX / window.innerWidth - 0.5) * 2;
+      const normY = (e.clientY / window.innerHeight - 0.5) * 2;
+      setTilt({ x: normX, y: normY });
+    };
 
-      const light = setLighting(scene);
-      let progress = setProgress((value) => setLoading(value));
-      const { loadCharacter } = setCharacter(renderer, scene, camera);
-
-      loadCharacter().then((gltf) => {
-        if (gltf) {
-          const animations = setAnimations(gltf);
-          hoverDivRef.current && animations.hover(gltf, hoverDivRef.current);
-          mixer = animations.mixer;
-          let character = gltf.scene;
-          setChar(character);
-          scene.add(character);
-          headBone = character.getObjectByName("spine006") || null;
-          screenLight = character.getObjectByName("screenlight") || null;
-          progress.loaded().then(() => {
-            setTimeout(() => {
-              light.turnOnLights();
-              animations.startIntro();
-            }, 2500);
-          });
-          window.addEventListener("resize", () =>
-            handleResize(renderer, camera, canvasDiv, character)
-          );
-        }
-      });
-
-      let mouse = { x: 0, y: 0 },
-        interpolation = { x: 0.1, y: 0.2 };
-
-      const onMouseMove = (event: MouseEvent) => {
-        handleMouseMove(event, (x, y) => (mouse = { x, y }));
-      };
-      let debounce: number | undefined;
-      const onTouchStart = (event: TouchEvent) => {
-        const element = event.target as HTMLElement;
-        debounce = setTimeout(() => {
-          element?.addEventListener("touchmove", (e: TouchEvent) =>
-            handleTouchMove(e, (x, y) => (mouse = { x, y }))
-          );
-        }, 200);
-      };
-
-      const onTouchEnd = () => {
-        handleTouchEnd((x, y, interpolationX, interpolationY) => {
-          mouse = { x, y };
-          interpolation = { x: interpolationX, y: interpolationY };
-        });
-      };
-
-      document.addEventListener("mousemove", (event) => {
-        onMouseMove(event);
-      });
-      const landingDiv = document.getElementById("landingDiv");
-      if (landingDiv) {
-        landingDiv.addEventListener("touchstart", onTouchStart);
-        landingDiv.addEventListener("touchend", onTouchEnd);
-      }
-      const animate = () => {
-        requestAnimationFrame(animate);
-        if (headBone) {
-          handleHeadRotation(
-            headBone,
-            mouse.x,
-            mouse.y,
-            interpolation.x,
-            interpolation.y,
-            THREE.MathUtils.lerp
-          );
-          light.setPointLight(screenLight);
-        }
-        const delta = clock.getDelta();
-        if (mixer) {
-          mixer.update(delta);
-        }
-        renderer.render(scene, camera);
-      };
-      animate();
-      return () => {
-        clearTimeout(debounce);
-        scene.clear();
-        renderer.dispose();
-        window.removeEventListener("resize", () =>
-          handleResize(renderer, camera, canvasDiv, character!)
-        );
-        if (canvasDiv.current) {
-          canvasDiv.current.removeChild(renderer.domElement);
-        }
-        if (landingDiv) {
-          document.removeEventListener("mousemove", onMouseMove);
-          landingDiv.removeEventListener("touchstart", onTouchStart);
-          landingDiv.removeEventListener("touchend", onTouchEnd);
-        }
-      };
-    }
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+    };
   }, []);
 
+  const cardTransform = isHovered
+    ? `perspective(1000px) rotateY(${tilt.x * 12}deg) rotateX(${-tilt.y * 12}deg) translateZ(20px) scale(1.02)`
+    : `perspective(1000px) rotateY(${tilt.x * 7}deg) rotateX(${-tilt.y * 7}deg) translateZ(0px)`;
+
+  const flareX = Math.max(0, Math.min(100, (tilt.x + 1) * 50));
+  const flareY = Math.max(0, Math.min(100, (tilt.y + 1) * 50));
+
   return (
-    <>
-      <div className="character-container">
-        <div className="character-model" ref={canvasDiv}>
-          <div className="character-rim"></div>
-          <div className="character-hover" ref={hoverDivRef}></div>
+    <div className="character-container">
+      <div className="character-model photo-character-model">
+        {/* Glowing ambient backlight halo */}
+        <div className="character-rim photo-rim-glow"></div>
+
+        {/* 3D Tilt Card */}
+        <div
+          ref={cardRef}
+          className="photo-card-wrapper"
+          style={{ transform: cardTransform }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {/* Holographic light glare */}
+          <div
+            className="photo-card-flare"
+            style={{
+              background: `radial-gradient(circle at ${flareX}% ${flareY}%, rgba(255, 255, 255, 0.22) 0%, transparent 65%)`,
+            }}
+          />
+
+          {/* Top Status Bar */}
+          <div className="photo-card-header">
+            <div className="photo-status-badge">
+              <span className="photo-status-dot"></span>
+              <span className="photo-status-text">AVAILABLE FOR WORK</span>
+            </div>
+            <div className="photo-category-pill">
+              {activePhoto === "p1" ? "PORTRAIT" : "FULL BODY"}
+            </div>
+          </div>
+
+          {/* Main Photo Display */}
+          <div
+            className="photo-display-box"
+            onClick={() => setActivePhoto(activePhoto === "p1" ? "p2" : "p1")}
+            title="Click to toggle photo"
+          >
+            <img
+              src="/images/p1.jpeg"
+              alt="Andi Yuditya - Portrait Close-up"
+              className={`hero-photo-img ${
+                activePhoto === "p1" ? "photo-active" : "photo-hidden"
+              }`}
+              loading="eager"
+            />
+            <img
+              src="/images/p3.jpeg"
+              alt="Andi Yuditya - Full Body Graduation"
+              className={`hero-photo-img ${
+                activePhoto === "p2" ? "photo-active" : "photo-hidden"
+              }`}
+              loading="eager"
+            />
+
+            {/* Bottom Gradient Shade */}
+            <div className="photo-bottom-shade">
+              <div className="photo-caption-info">
+                <h4>Andi Yuditya</h4>
+                <p>Web Developer • Data Analyst / Visualisasi • System Analyst</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Switch Pills */}
+          <div className="photo-switcher-bar">
+            <button
+              type="button"
+              className={`photo-switch-btn ${
+                activePhoto === "p1" ? "active" : ""
+              }`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setActivePhoto("p1");
+              }}
+              data-cursor="disable"
+            >
+              <span className="btn-icon">👤</span> Portrait (P1)
+            </button>
+            <button
+              type="button"
+              className={`photo-switch-btn ${
+                activePhoto === "p2" ? "active" : ""
+              }`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setActivePhoto("p2");
+              }}
+              data-cursor="disable"
+            >
+              <span className="btn-icon">🎓</span> Full Body (P3)
+            </button>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

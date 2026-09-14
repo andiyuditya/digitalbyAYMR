@@ -59,6 +59,7 @@ const WhatIDo = () => {
               />
             </svg>
           </div>
+          {/* Card 1: Web Developer */}
           <div
             className="what-content what-noTouch"
             ref={(el) => setRef(el, 0)}
@@ -88,20 +89,20 @@ const WhatIDo = () => {
             <div className="what-corner"></div>
 
             <div className="what-content-in">
-              <h3>{config.skills.develop.title}</h3>
-              <h4>{config.skills.develop.description}</h4>
-              <p>
-                {config.skills.develop.details}
-              </p>
+              <h3>{config.skills.webDev.title}</h3>
+              <h4>{config.skills.webDev.description}</h4>
+              <p>{config.skills.webDev.details}</p>
               <h5>Skillset & tools</h5>
               <div className="what-content-flex">
-                {config.skills.develop.tools.map((tool, index) => (
+                {config.skills.webDev.tools.map((tool, index) => (
                   <div key={index} className="what-tags">{tool}</div>
                 ))}
               </div>
               <div className="what-arrow"></div>
             </div>
           </div>
+
+          {/* Card 2: Data Analyst / Visualisasi */}
           <div
             className="what-content what-noTouch"
             ref={(el) => setRef(el, 1)}
@@ -121,14 +122,45 @@ const WhatIDo = () => {
             </div>
             <div className="what-corner"></div>
             <div className="what-content-in">
-              <h3>{config.skills.design.title}</h3>
-              <h4>{config.skills.design.description}</h4>
-              <p>
-                {config.skills.design.details}
-              </p>
+              <h3>{config.skills.dataAnalyst.title}</h3>
+              <h4>{config.skills.dataAnalyst.description}</h4>
+              <p>{config.skills.dataAnalyst.details}</p>
               <h5>Skillset & tools</h5>
               <div className="what-content-flex">
-                {config.skills.design.tools.map((tool, index) => (
+                {config.skills.dataAnalyst.tools.map((tool, index) => (
+                  <div key={index} className="what-tags">{tool}</div>
+                ))}
+              </div>
+              <div className="what-arrow"></div>
+            </div>
+          </div>
+
+          {/* Card 3: System Analyst */}
+          <div
+            className="what-content what-noTouch"
+            ref={(el) => setRef(el, 2)}
+          >
+            <div className="what-border1">
+              <svg height="100%">
+                <line
+                  x1="0"
+                  y1="100%"
+                  x2="100%"
+                  y2="100%"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeDasharray="6,6"
+                />
+              </svg>
+            </div>
+            <div className="what-corner"></div>
+            <div className="what-content-in">
+              <h3>{config.skills.systemAnalyst.title}</h3>
+              <h4>{config.skills.systemAnalyst.description}</h4>
+              <p>{config.skills.systemAnalyst.details}</p>
+              <h5>Skillset & tools</h5>
+              <div className="what-content-flex">
+                {config.skills.systemAnalyst.tools.map((tool, index) => (
                   <div key={index} className="what-tags">{tool}</div>
                 ))}
               </div>

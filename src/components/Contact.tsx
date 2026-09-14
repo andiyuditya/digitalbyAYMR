@@ -68,6 +68,12 @@ const Contact = () => {
                 {config.contact.email}
               </a>
             </p>
+            <h4>Phone / WhatsApp</h4>
+            <p>
+              <a href="https://wa.me/6285342589658" target="_blank" rel="noopener noreferrer" data-cursor="disable">
+                {config.contact.phone}
+              </a>
+            </p>
             <h4>Location</h4>
             <p>
               <span>{config.social.location}</span>

@@ -38,38 +38,38 @@
 
 .what-box-in {
   flex-direction: column;
-  height: 500px;
+  height: 620px;
   margin-left: 200px;
   position: relative;
   display: flex;
 }
 
 .what-content {
-  width: 450px;
-  height: 33%;
-  min-height: 50%;
+  width: 470px;
+  height: 33.333%;
+  min-height: 33.333%;
   transition: 0.5s;
   /* border: 0.5px dashed rgba(255, 255, 255, 0.3); */
   position: relative;
-  padding: 50px;
+  padding: 28px 40px;
   box-sizing: border-box;
 }
 
 .what-noTouch:hover,
 .what-content-active {
-  min-height: 67%;
-  padding: 40px 50px;
+  min-height: 56%;
+  padding: 22px 40px;
 }
 
 .what-noTouch:hover~.what-content,
 .what-box-in:hover .what-noTouch:not(:hover),
 .what-content.what-sibling {
-  min-height: 33%;
-  padding: 10px 50px;
+  min-height: 22%;
+  padding: 10px 40px;
 }
 
 .what-content h3 {
-  font-size: 35px;
+  font-size: clamp(20px, 2.2vw, 28px);
   letter-spacing: 1px;
   margin: 0;
 }
@@ -223,7 +223,7 @@
 }
 
 .what-border2 svg {
-  height: 500px;
+  height: 620px;
   top: 50%;
   transform: translateY(-50%);
   position: absolute;

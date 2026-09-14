@@ -8,6 +8,7 @@ import Navbar from "./Navbar";
 import SocialIcons from "./SocialIcons";
 import WhatIDo from "./WhatIDo";
 import Work from "./Work";
+import Certificates from "./Certificates";
 import TechStackNew from "./TechStackNew";
 import CallToAction from "./CallToAction";
 import setSplitText from "./utils/splitText";
@@ -17,7 +18,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     window.innerWidth > 1024
   );
   const [isMobile] = useState<boolean>(window.innerWidth <= 768);
-  const [shouldRenderCharacter, setShouldRenderCharacter] = useState(false);
+  const [shouldRenderCharacter, setShouldRenderCharacter] = useState(true);
 
   useEffect(() => {
     const resizeHandler = () => {
@@ -71,6 +72,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
         <WhatIDo />
         <Career />
         <Work />
+        <Certificates />
         <TechStackNew />
         <CallToAction />
         <Contact />
