@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react";
 import { useLoading } from "../../context/LoadingProvider";
 import { setProgress } from "../Loading";
@@ -14,11 +15,13 @@ const Scene = () => {
   useEffect(() => {
     // Preload both images
     const img1 = new Image();
-    img1.src = "/images/p1.jpeg";
+    img1.src = `${import.meta.env.BASE_URL}images/p1.jpeg`;
+
     const img2 = new Image();
-    img2.src = "/images/p3.jpeg";
+    img2.src = `${import.meta.env.BASE_URL}images/p3.jpeg`;
 
     const progress = setProgress((value) => setLoading(value));
+
     const timer = setTimeout(() => {
       progress.loaded();
     }, 400);
@@ -36,10 +39,15 @@ const Scene = () => {
     const onMouseMove = (e: MouseEvent) => {
       const normX = (e.clientX / window.innerWidth - 0.5) * 2;
       const normY = (e.clientY / window.innerHeight - 0.5) * 2;
-      setTilt({ x: normX, y: normY });
+
+      setTilt({
+        x: normX,
+        y: normY,
+      });
     };
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
+
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
     };
@@ -78,8 +86,11 @@ const Scene = () => {
           <div className="photo-card-header">
             <div className="photo-status-badge">
               <span className="photo-status-dot"></span>
-              <span className="photo-status-text">AVAILABLE FOR WORK</span>
+              <span className="photo-status-text">
+                AVAILABLE FOR WORK
+              </span>
             </div>
+
             <div className="photo-category-pill">
               {activePhoto === "p1" ? "PORTRAIT" : "FULL BODY"}
             </div>
@@ -88,22 +99,29 @@ const Scene = () => {
           {/* Main Photo Display */}
           <div
             className="photo-display-box"
-            onClick={() => setActivePhoto(activePhoto === "p1" ? "p2" : "p1")}
+            onClick={() =>
+              setActivePhoto(activePhoto === "p1" ? "p2" : "p1")
+            }
             title="Click to toggle photo"
           >
             <img
-              src="/images/p1.jpeg"
+              src={`${import.meta.env.BASE_URL}images/p1.jpeg`}
               alt="Andi Yuditya - Portrait Close-up"
               className={`hero-photo-img ${
-                activePhoto === "p1" ? "photo-active" : "photo-hidden"
+                activePhoto === "p1"
+                  ? "photo-active"
+                  : "photo-hidden"
               }`}
               loading="eager"
             />
+
             <img
-              src="/images/p3.jpeg"
+              src={`${import.meta.env.BASE_URL}images/p3.jpeg`}
               alt="Andi Yuditya - Full Body Graduation"
               className={`hero-photo-img ${
-                activePhoto === "p2" ? "photo-active" : "photo-hidden"
+                activePhoto === "p2"
+                  ? "photo-active"
+                  : "photo-hidden"
               }`}
               loading="eager"
             />
@@ -112,7 +130,9 @@ const Scene = () => {
             <div className="photo-bottom-shade">
               <div className="photo-caption-info">
                 <h4>Andi Yuditya</h4>
-                <p>Web Developer • Data Analyst / Visualisasi • System Analyst</p>
+                <p>
+                  Web Developer • Data Analyst / Visualisasi • System Analyst
+                </p>
               </div>
             </div>
           </div>
@@ -132,6 +152,7 @@ const Scene = () => {
             >
               <span className="btn-icon">👤</span> Portrait (P1)
             </button>
+
             <button
               type="button"
               className={`photo-switch-btn ${
@@ -153,3 +174,4 @@ const Scene = () => {
 };
 
 export default Scene;
+
