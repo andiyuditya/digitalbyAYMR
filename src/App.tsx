@@ -10,7 +10,7 @@ import { LoadingProvider } from "./context/LoadingProvider";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/digitalbyAYMR">
       <Routes>
         <Route
           path="/"
