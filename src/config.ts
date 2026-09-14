@@ -1,3 +1,4 @@
+const BASE_URL = import.meta.env.BASE_URL;
 export interface Project {
   id: number;
   title: string;
@@ -139,7 +140,7 @@ export const config = {
       title: "Website Monitoring & Visualization of Marine Products Distribution (Final Thesis)",
       category: "Data Analytics & Web Systems",
       technologies: "PHP, Laravel, Bootstrap, MySQL, Chart.js",
-      image: "/images/projects/fishflow-main.png",
+      image: `${BASE_URL}images/projects/fishflow-main.png`,
       description: "Developed a web-based monitoring system (FishFlow) to efficiently track the distribution of marine products. Implemented interactive data visualization using Chart.js to provide insights into distribution patterns, built real-time reporting features for business decision-making, and centralized distribution, sales, and inventory data into a single integrated platform.",
       link: "https://github.com/andiyuditya"
     },
@@ -148,7 +149,7 @@ export const config = {
       title: "Demand Structure Dashboard Monitoring",
       category: "Power BI & Business Intelligence",
       technologies: "Power BI, Data Visualization, Business Intelligence, DAX, Excel",
-      image: "/images/projects/demand-structure-main.png",
+      image: `${BASE_URL}images/projects/demand-structure-main.png`,
       description: "Designed and developed a Power BI-based demand structure dashboard to monitor sales, profit, and revenue performance for PT Hadji Kalla (Kalla Toyota). Enabled users to visualize business data through interactive charts and reports for real-time monitoring and data-driven insights through the company's internal system.",
       link: "https://github.com/andiyuditya"
     },
@@ -157,7 +158,7 @@ export const config = {
       title: "Fingerprint Attendance System for Educational Staff of PNUP Using IoT",
       category: "IoT, Networking & System Security",
       technologies: "IoT, Networking, System Design, Security, ESP32, MQTT, Python, MySQL",
-      image: "/images/projects/fingerprint-iot-main.png",
+      image: `${BASE_URL}images/projects/fingerprint-iot-main.png`,
       description: "Designed an IoT-based fingerprint attendance system for educational staff, covering network architecture, algorithms, system security, and hardware requirements. Conducted surveys with staff to analyze existing processes and developed a secure, efficient attendance solution to support digital administrative transformation.",
       link: "https://github.com/andiyuditya"
     },
@@ -166,7 +167,7 @@ export const config = {
       title: "Android-based Cashier Application for UMKM Teh Tubruk Khas Solo",
       category: "Mobile Application (Android)",
       technologies: "Android Studio, Kotlin, Firebase, Figma",
-      image: "/images/projects/cashier-teh-tubruk-main.png",
+      image: `${BASE_URL}images/projects/cashier-teh-tubruk-main.png`,
       description: "Designed the cashier application interface using Figma to provide an intuitive and modern user experience. Developed the front-end using Android Studio with Kotlin programming language, and built a real-time database using Firebase to support transaction recording and efficient data synchronization.",
       link: "https://github.com/andiyuditya"
     },
@@ -175,7 +176,7 @@ export const config = {
       title: "Smart Water Meter Reading with IoT & Cloud OCR",
       category: "IoT & Cloud Computer Vision",
       technologies: "Python, Google Cloud Platform (GCP), Optical Character Recognition (OCR), IoT Sensor, MySQL, Web Portal",
-      image: "/images/projects/water-meter-ocr-main.png",
+      image: `${BASE_URL}images/projects/water-meter-ocr-main.png`,
       description: "An automated end-to-end utility telemetry system. IoT camera nodes capture analog water meter counters and stream frames to Google Cloud Platform, where OCR algorithms extract numeric readings into a MySQL database, providing real-time consumption metrics on a dedicated web portal.",
       link: "https://github.com/andiyuditya"
     },
@@ -184,7 +185,7 @@ export const config = {
       title: "Campus Network Infrastructure & Wi-Fi Heatmap Optimization",
       category: "Network Engineering & Infrastructure",
       technologies: "MikroTik CRS125, Ubiquiti UniFi AP AC Pro, VLAN, IPv4 Subnetting, RF Heatmap Simulation",
-      image: "/images/projects/network-design-main.png",
+      image: `${BASE_URL}images/projects/network-design-main.png`,
       description: "Complete enterprise network architecture and Wi-Fi signal propagation design for the Accounting Building at PNUP. Optimized Access Point placements through RF attenuation heatmap modeling (-40 to -74 dBm), implemented VLAN segmentation for offices and lecture halls, and configured high-speed switch backbones.",
       link: "https://github.com/andiyuditya"
     },
@@ -193,7 +194,7 @@ export const config = {
       title: "School Information & PPDB Admission System (SMAN 5 Bone)",
       category: "Web Development & Information Systems",
       technologies: "PHP, MySQL, JavaScript, HTML5, CSS3, Bootstrap",
-      image: "/images/projects/school-sims-main.png",
+      image: `${BASE_URL}images/projects/school-sims-main.png`,
       description: "A public school portal and digital student admission (PPDB) platform for SMAN 5 Bone. Features academic announcements, extracurricular activity galleries, downloadable registration materials, an online admission submission workflow, and a protected administrative backend.",
       link: "https://github.com/andiyuditya"
     },
@@ -202,11 +203,12 @@ export const config = {
       title: "Blooms for You - Bouquet Catalog & Ordering App",
       category: "Mobile Application (Android)",
       technologies: "Android Studio, Java, Kotlin, XML, SQLite",
-      image: "/images/projects/blooms-bouquet-main.png",
+      image: `${BASE_URL}images/projects/blooms-bouquet-main.png`,
       description: "A native Android e-commerce and floral guide application presenting assorted bouquet designs (Rose, Sunflower, Baby Breath, Lily, Carnation, Peony) alongside botanical symbolism, price breakdowns, and simple order placement.",
       link: "https://github.com/andiyuditya"
     }
   ],
+
   certificates: [
     {
       id: 1,
@@ -214,7 +216,7 @@ export const config = {
       issuer: "BNSP & LSP Politeknik Negeri Ujung Pandang",
       year: "2025",
       category: "Certification",
-      image: "/images/certificates/cert-bnsp-web-programmer.png",
+      image: `${BASE_URL}images/certificates/cert-bnsp-web-programmer.png`,
       credentialId: "No. Reg. TIK 119 00466 2025",
       description: "Demonstrated competency in web programming and application development. Applied programming, database integration, and web development concepts as a certified Computer Programmer."
     },
@@ -224,7 +226,7 @@ export const config = {
       issuer: "Elskill English Course",
       year: "2025",
       category: "Certification",
-      image: "/images/certificates/cert-toefl-557.png",
+      image: `${BASE_URL}images/certificates/cert-toefl-557.png`,
       credentialId: "No: 39984/S-T/EEC/V/2025",
       description: "Demonstrated English proficiency in listening comprehension, structure and written expression, and reading comprehension with a total score of 557."
     },
@@ -234,7 +236,7 @@ export const config = {
       issuer: "PT Hadji Kalla (Kalla Toyota)",
       year: "2024 - 2025",
       category: "Experience",
-      image: "/images/certificates/cert-kalla-toyota.png",
+      image: `${BASE_URL}images/certificates/cert-kalla-toyota.png`,
       credentialId: "Makassar, 3 Jan 2025",
       description: "Penghargaan atas keberhasilan menyelesaikan tugas di PT Hadji Kalla (Kalla Toyota) pada divisi Sales Operation & Program, merancang Power BI demand structure dashboard dan monitoring real-time penjualan ritel."
     },
@@ -244,7 +246,7 @@ export const config = {
       issuer: "Kemendikbudristek & LPDP (PNUP ke POLINEMA)",
       year: "2024",
       category: "Academic",
-      image: "/images/certificates/cert-pmm-kemendikbud-polinema.png",
+      image: `${BASE_URL}images/certificates/cert-pmm-kemendikbud-polinema.png`,
       credentialId: "Nomor: 196307051989111001",
       description: "Participated in a national student exchange program involving academic and cross-cultural learning. Developed collaboration, communication, adaptability, and interpersonal skills through diverse learning environments."
     },
@@ -254,7 +256,7 @@ export const config = {
       issuer: "BAKTI Kominfo Wilayah Kerja Makassar",
       year: "2023",
       category: "Training",
-      image: "/images/certificates/cert-bakti-kominfo.png",
+      image: `${BASE_URL}images/certificates/cert-bakti-kominfo.png`,
       credentialId: "Makassar, 23-24 Nov 2023",
       description: "Gained insights into digital talent development and industry-relevant technology skills. Learned about the importance of digital competencies in supporting Indonesia's digital transformation."
     },
@@ -264,7 +266,7 @@ export const config = {
       issuer: "5th Carnaval IMWORK 2023 - Universitas Sriwijaya",
       year: "2023",
       category: "Seminar",
-      image: "/images/certificates/cert-imwork-business-intelligence.jpg",
+      image: `${BASE_URL}images/certificates/cert-imwork-business-intelligence.jpg`,
       credentialId: "Palembang, Oct 2023",
       description: "Gained insights into Business Intelligence and Enterprise Systems in modern organizations. Learned how data and enterprise technology support data-driven decision-making and business processes."
     },
@@ -274,7 +276,7 @@ export const config = {
       issuer: "5th Carnaval IMWORK 2023 - Universitas Sriwijaya",
       year: "2023",
       category: "Seminar",
-      image: "/images/certificates/cert-imwork-cyber-security.jpg",
+      image: `${BASE_URL}images/certificates/cert-imwork-cyber-security.jpg`,
       credentialId: "Palembang, Oct 2023",
       description: "Gained knowledge of cybersecurity concepts, digital threats, and information security risks. Learned the importance of security awareness and preventive measures in protecting digital systems."
     },
@@ -284,7 +286,7 @@ export const config = {
       issuer: "5th Carnaval IMWORK 2023 - Universitas Sriwijaya",
       year: "2023",
       category: "Seminar",
-      image: "/images/certificates/cert-imwork-digital-transformation.jpg",
+      image: `${BASE_URL}images/certificates/cert-imwork-digital-transformation.jpg`,
       credentialId: "Palembang, Oct 2023",
       description: "Gained insights into challenges and opportunities in implementing digital transformation. Learned strategies for leveraging technology and innovation to improve organizational processes."
     },
@@ -294,7 +296,7 @@ export const config = {
       issuer: "UKM Bahasa Politeknik Negeri Ujung Pandang",
       year: "2023",
       category: "Academic",
-      image: "/images/certificates/cert-baksos-ukm-bahasa.jpg",
+      image: `${BASE_URL}images/certificates/cert-baksos-ukm-bahasa.jpg`,
       credentialId: "Apr 2023",
       description: "Participated as a volunteer in a charity event at Tobalu Orphanage, supporting social and community service activities through teamwork, communication, and engagement."
     },
@@ -304,7 +306,7 @@ export const config = {
       issuer: "Poltekkes Kerta Cendekia Sidoarjo",
       year: "2026",
       category: "Training",
-      image: "/images/certificates/cert-k3-webinar-nasional.png",
+      image: `${BASE_URL}images/certificates/cert-k3-webinar-nasional.png`,
       credentialId: "024/SERT/PKC/WEBNAS-K3/VII/2026",
       description: "Occupational Health and Safety Beyond Compliance: Protecting People, Enhancing Performance – Perspektif Implementasi K3 pada Industri Migas dan Pertambangan."
     },
@@ -314,7 +316,7 @@ export const config = {
       issuer: "Himpunan Mahasiswa Elektro PNUP",
       year: "2022",
       category: "Seminar",
-      image: "/images/certificates/cert-deep-learning-pnup.jpg",
+      image: `${BASE_URL}images/certificates/cert-deep-learning-pnup.jpg`,
       credentialId: "Makassar, 6 Mar 2022",
       description: "Eksplorasi arsitektur jaringan saraf tiruan, computer vision, dan implementasi deep learning dalam transformasi rekayasa teknologi masa depan."
     },
@@ -324,7 +326,7 @@ export const config = {
       issuer: "Seminar Nasional Cyber Security PNUP",
       year: "2023",
       category: "Seminar",
-      image: "/images/certificates/cert-cyber-security-nasional.jpg",
+      image: `${BASE_URL}images/certificates/cert-cyber-security-nasional.jpg`,
       credentialId: "Jan 2023",
       description: "Moderator dan peserta seminar nasional cyber security: pendalaman tata kelola keamanan informasi digital dan mitigasi insiden siber."
     },
@@ -334,7 +336,7 @@ export const config = {
       issuer: "Himpunan Mahasiswa Administrasi Niaga PNUP",
       year: "2023",
       category: "Seminar",
-      image: "/images/certificates/cert-seminar-kewirausahaan-pnup.png",
+      image: `${BASE_URL}images/certificates/cert-seminar-kewirausahaan-pnup.png`,
       credentialId: "75/PL10/DT.01.01/2023",
       description: "Be productive, creative and innovative with entrepreneurship in society 5.0."
     },
@@ -344,7 +346,7 @@ export const config = {
       issuer: "Program Merdeka Belajar Kampus Merdeka",
       year: "2023",
       category: "Training",
-      image: "/images/certificates/cert-bisnis-digital.jpg",
+      image: `${BASE_URL}images/certificates/cert-bisnis-digital.jpg`,
       credentialId: "Digital Business Track",
       description: "Pengembangan strategi bisnis digital, analisis data pasar, dan model bisnis teknologi adaptif."
     },
@@ -354,7 +356,7 @@ export const config = {
       issuer: "Tech & Professional Development Program",
       year: "2023",
       category: "Training",
-      image: "/images/certificates/cert-learning-weekend.jpg",
+      image: `${BASE_URL}images/certificates/cert-learning-weekend.jpg`,
       credentialId: "Special Edition Certificate",
       description: "Pengembangan keterampilan teknis intensif, collaborative engineering, dan pemecahan masalah praktis."
     },
@@ -364,11 +366,13 @@ export const config = {
       issuer: "Forum Kolaborasi Akademik & Mahasiswa",
       year: "2023",
       category: "Seminar",
-      image: "/images/certificates/cert-society-5-komunikasi.jpg",
+      image: `${BASE_URL}images/certificates/cert-society-5-komunikasi.jpg`,
       credentialId: "Society 5.0 Forum",
       description: "Peningkatan keterampilan komunikasi profesional, interpersonal skills, dan kepemimpinan di era digital terhubung."
     }
   ],
+
+
   contact: {
     email: "andiyuditya.3@gmail.com",
     phone: "085342589658",
