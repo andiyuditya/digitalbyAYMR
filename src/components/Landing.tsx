@@ -41,20 +41,21 @@ const Landing = ({ children }: PropsWithChildren) => {
                 onClick={() => setActiveMobilePhoto(activeMobilePhoto === "p1" ? "p2" : "p1")}
                 title="Tap to toggle photo"
               >
-                <img
-                  src="/images/p1.jpeg"
-                  alt={`${config.developer.fullName} - Portrait`}
-                  className={`mobile-photo-img ${activeMobilePhoto === "p1" ? "active" : ""}`}
-                  loading="eager"
-                  fetchPriority="high"
-                />
-                <img
-                  src="/images/p3.jpeg"
-                  alt={`${config.developer.fullName} - Full Body`}
-                  className={`mobile-photo-img ${activeMobilePhoto === "p2" ? "active" : ""}`}
-                  loading="eager"
-                  fetchPriority="high"
-                />
+               <img
+                src={`${import.meta.env.BASE_URL}images/p1.jpeg`}
+                alt={`${config.developer.fullName} - Portrait`}
+                className={`mobile-photo-img ${activeMobilePhoto === "p1" ? "active" : ""}`}
+                loading="eager"
+                fetchPriority="high"
+              />
+
+              <img
+                src={`${import.meta.env.BASE_URL}images/p3.jpeg`}
+                alt={`${config.developer.fullName} - Full Body`}
+                className={`mobile-photo-img ${activeMobilePhoto === "p2" ? "active" : ""}`}
+                loading="eager"
+                fetchPriority="high"
+              /> 
                 <div className="mobile-photo-badge">
                   <span>{activeMobilePhoto === "p1" ? "👤 Portrait" : "🎓 Full Body"}</span>
                 </div>

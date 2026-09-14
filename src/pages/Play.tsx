@@ -376,7 +376,7 @@ const Play = () => {
           <div className="player-bar opponent-bar">
             <div className="player-info">
               <div className="player-avatar">
-                <img src="/images/p1.jpeg" alt={config.developer.name} loading="lazy" decoding="async" />
+                <img src={`${import.meta.env.BASE_URL}images/p1.jpeg`} alt={config.developer.name} loading="lazy" decoding="async" />
               </div>
               <div className="player-details">
                 <span className="player-name">{config.developer.name}</span>
